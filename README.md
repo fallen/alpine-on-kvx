@@ -44,11 +44,9 @@ It also builds those "native" (kvx) packages:
 * musl-libintl
 * musl-utils
 * pkgconf
-* pkgconf-dev
-* pkgconf-doc
 * zlib
-* zlib-dev
-* zlib-doc
-* zlib-static
+* openssl
+* ca-certificates
+* ca-certificates-bundle
 
-For now it fails at `openssl`
+For now it fails at `libmd`
