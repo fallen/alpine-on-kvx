@@ -48,5 +48,14 @@ It also builds those "native" (kvx) packages:
 * openssl
 * ca-certificates
 * ca-certificates-bundle
+* gmp
+* isl
+* isl26
+* libcrypto3
+* libmd
+* libssl3
+* libucontext
+* mpc1
+* mpfr4
 
-For now it fails at `libmd`
+For now it fails at `zstd`
