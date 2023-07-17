@@ -21,8 +21,27 @@ $ podman run -ti ce02e1ac49d sh
 ~/aports/scripts $ ./bootstrap.sh kvx
 ```
 
-So far it builds the following packages:
+So far it builds the following "host" (x86_64) packages:
 * binutils-kvx
 * musl-dev
+* gcc-pass2-kvx
+* gcc-kvx
+* g++-kvx
+* libstdc++-dev-kvx
+* build-base-kvx
 
-For now it fails at `gcc-pass2-kvx`
+It also builds those "native" (kvx) packages:
+* bsd-compat-headers
+* fortify-headers
+* libc-dev
+* libc-utils
+* libgcc
+* libstdc++
+* linux-headers
+* musl-1.2.3
+* musl-dbg
+* musl-dev
+* musl-libintl
+* musl-utils
+
+For now it fails at `pkgconf`
