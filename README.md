@@ -37,5 +37,13 @@ doas ~/aports/scripts/genrootfs.sh -r ~/repositories -a kvx -o $PWD/alpine-kvx.t
 Then generate initramfs:
 
 ```bash
-mkinitfs -o alpine-kvx-initramfs -n -k -b /home/yann/packages/main/kvx/rootfs
+doas apk add mkinitfs
+mkdir rootfs
+cp alpine-kvx.tar.gz rootfs/
+cd rootfs
+tar xzf alpine-kvx.tar.gz
+rm alpine-kvx.tar.gz
+cp /home/yann/sysroot-kvx/etc/apk/keys/* $PWD/etc/apk/keys/
+cd ..
+mkinitfs -o alpine-kvx-initramfs -n -k -b $PWD/rootfs
 ```
