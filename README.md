@@ -47,3 +47,30 @@ cp /home/yann/sysroot-kvx/etc/apk/keys/* $PWD/etc/apk/keys/
 cd ..
 mkinitfs -o alpine-kvx-initramfs -n -k -b $PWD/rootfs
 ```
+
+Run it via qemu:
+
+```bash
+qemu-system-kvx -M mppa-coolidge,virtio-mmio=on -m 4G -nographic -kernel /mnt/ssd/altc/workspace/build_buildroot/build_conf_mppa/images/vmlinux --append "nr_cpus=1 console=ttyS0 root=/dev/vda" -drive file=/tmp/alpine/rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -device virtio-net-device,netdev=net0 -netdev user,id=net0,net=192.168.252.0/24,dhcpstart=192.168.252.1,hostfwd=tcp::2222-:22,restrict=no
+```
+
+kvx package build order:
+```
+bzip2
+lua5.2
+perl (without testsuite)
+```
+
+k200lp cmdline: earlycon norandmaps console=ttyS0,115200 root=/dev/mmcblk0 initrd=0x1100
+00000,6105272
+
+Mount repository into podman:
+podman run -ti --mount type=bind,source=$HOME/packages,destination=/mnt localhost/alpine_kvx_built3 sh
+
+Re-generate APKINDEX from podman x86:
+/mnt/main/kvx # apk index --arch kvx --progress -d "Alpine kvx repositor
+y" -x APKINDEX.tar.gz --allow-untrusted --merge -o APKINDEX.tar.gz *.apk
+
+SIGN APKINDEX:
+/mnt/main/kvx # abuild-sign -k /home/yann/.abuild/-64bd12af.rsa -p /etc/
+apk/keys/-64bd12af.rsa.pub   APKINDEX.tar.gz
